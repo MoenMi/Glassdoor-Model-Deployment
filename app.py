@@ -5,10 +5,13 @@ import re
 import joblib
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+import nltk
 from nltk.corpus import stopwords
 
 from models import PredictRequest, PredictResponse
 
+
+nltk.download("stopwords", quiet=True)
 
 APP_DIR = Path(__file__).resolve().parent
 LOGREG_MODEL_PATH = APP_DIR / "models" / "final_logistic_regression_model.joblib"
