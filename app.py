@@ -11,7 +11,8 @@ from nltk.corpus import stopwords
 from models import PredictRequest, PredictResponse
 
 
-nltk.download("stopwords", quiet=True)
+nltk.data.path.append("/tmp/nltk_data")
+nltk.download("stopwords", download_dir="/tmp/nltk_data", quiet=True)
 
 APP_DIR = Path(__file__).resolve().parent
 LOGREG_MODEL_PATH = APP_DIR / "models" / "final_logistic_regression_model.joblib"
