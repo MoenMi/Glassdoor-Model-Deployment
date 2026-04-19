@@ -2,3 +2,5 @@ fastapi
 pandas
 joblib
 mltk
+pyarrow
+scikit-learn
