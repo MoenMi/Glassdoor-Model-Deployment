@@ -31,7 +31,7 @@ async def lifespan(app: FastAPI):
     LOGREG_MODEL = joblib.load(LOGREG_MODEL_PATH)
     yield
     # Shutdown
-    model = None
+    LOGREG_MODEL = None
 
 
 def clean_text(text: str) -> str:
@@ -68,7 +68,10 @@ app = FastAPI(
 
 @app.post("/predict", response_model=PredictResponse)
 def predict_review(payload: PredictRequest):
-    global model
+    """
+    Predict if a reviewer would recommend their company based on the text of their review.
+    """
+    global LOGREG_MODEL
 
     if LOGREG_MODEL is None:
         raise HTTPException(status_code=500, detail="Model is not loaded")
@@ -109,7 +112,7 @@ def predict_review(payload: PredictRequest):
 def get_sample_data():
     """
     Get a random row from the 2023 January data
-    
+
     Note that the model is trained on 2022 data, so this data is out of time and was not encountered in the model's training.
     """
     try:
